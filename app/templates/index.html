@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hello, {{ current_user.username }}!</h1>
+    {% for commande in commandes %}
+    <div>
+        <p>{{commande.vin}} {{commande.millesime}} de chez {{commande.producteur}}</p>
+        <p>{{commande.quantite}} {{commande.code}} => <b>{{commande.prix_unit*commande.quantite}}</b></p>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,157 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'Products'
+--
+-- ---
+
+DROP TABLE IF EXISTS `Products`;
+
+CREATE TABLE `Products` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `label` INTEGER NULL DEFAULT NULL,
+  `millesime` INTEGER(4) NULL DEFAULT NULL,
+  `code` MEDIUMTEXT(10) NULL DEFAULT NULL,
+  `id_Producers` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'initial_order'
+--
+-- ---
+
+DROP TABLE IF EXISTS `initial_order`;
+
+CREATE TABLE `initial_order` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `year` INTEGER NULL DEFAULT NULL,
+  `id_Users` INTEGER NULL DEFAULT NULL,
+  `id_Products` INTEGER NULL DEFAULT NULL,
+  `quantity` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Users'
+-- Informations sur les adhérents
+-- ---
+
+DROP TABLE IF EXISTS `Users`;
+
+CREATE TABLE `Users` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `username` VARCHAR(64) NOT NULL DEFAULT 'NULL',
+  `email` VARCHAR(120) NOT NULL DEFAULT 'NULL',
+  `password_hash` VARCHAR(128) NOT NULL DEFAULT 'NULL',
+  `family_name` VARCHAR(128) NULL DEFAULT NULL,
+  `surname` VARCHAR(128) NULL DEFAULT NULL,
+  `member_num` INTEGER(5) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) COMMENT 'Informations sur les adhérents';
+
+-- ---
+-- Table 'Producers'
+--
+-- ---
+
+DROP TABLE IF EXISTS `Producers`;
+
+CREATE TABLE `Producers` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(128) NOT NULL DEFAULT 'NULL',
+  `domain` VARCHAR(128) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'direct_order'
+--
+-- ---
+
+DROP TABLE IF EXISTS `direct_order`;
+
+CREATE TABLE `direct_order` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_Users` INTEGER NULL DEFAULT NULL,
+  `id_Products` INTEGER NULL DEFAULT NULL,
+  `year` INTEGER(4) NULL DEFAULT NULL,
+  `quantity` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'containers'
+--
+-- ---
+
+DROP TABLE IF EXISTS `containers`;
+
+CREATE TABLE `containers` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `label` VARCHAR(128) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'prix'
+--
+-- ---
+
+DROP TABLE IF EXISTS `prix`;
+
+CREATE TABLE `prix` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `year` INTEGER NULL DEFAULT NULL,
+  `id_containers` INTEGER NULL DEFAULT NULL,
+  `id_Products` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys
+-- ---
+
+ALTER TABLE `Products` ADD FOREIGN KEY (id_Producers) REFERENCES `Producers` (`id`);
+ALTER TABLE `initial_order` ADD FOREIGN KEY (id_Users) REFERENCES `Users` (`id`);
+ALTER TABLE `initial_order` ADD FOREIGN KEY (id_Products) REFERENCES `Products` (`id`);
+ALTER TABLE `direct_order` ADD FOREIGN KEY (id_Users) REFERENCES `Users` (`id`);
+ALTER TABLE `direct_order` ADD FOREIGN KEY (id_Products) REFERENCES `Products` (`id`);
+ALTER TABLE `prix` ADD FOREIGN KEY (id_containers) REFERENCES `containers` (`id`);
+ALTER TABLE `prix` ADD FOREIGN KEY (id_Products) REFERENCES `Products` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `Products` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `initial_order` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Producers` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `direct_order` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `containers` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `prix` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `Products` (`id`,`label`,`millesime`,`code`,`id_Producers`) VALUES
+-- ('','','','','');
+-- INSERT INTO `initial_order` (`id`,`year`,`id_Users`,`id_Products`,`quantity`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Users` (`id`,`username`,`email`,`password_hash`,`family_name`,`surname`,`member_num`) VALUES
+-- ('','','','','','','');
+-- INSERT INTO `Producers` (`id`,`name`,`domain`) VALUES
+-- ('','','');
+-- INSERT INTO `direct_order` (`id`,`id_Users`,`id_Products`,`year`,`quantity`) VALUES
+-- ('','','','','');
+-- INSERT INTO `containers` (`id`,`label`) VALUES
+-- ('','');
+-- INSERT INTO `prix` (`id`,`year`,`id_containers`,`id_Products`) VALUES
+-- ('','','','');

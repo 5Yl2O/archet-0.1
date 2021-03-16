@@ -1,0 +1,2 @@
+FLASK_APP=archet.py
+FLASK_DEBUG=1
