@@ -11,10 +11,11 @@
 <body>
     <div>Archet:
         <a href={{url_for('index')}}>Home</a>
+        <a href="{{ url_for('explore') }}">Explorer</a>
         {% if current_user.is_anonymous %}
         <a href={{url_for('login')}}>Connexion</a>
         {% else %}
-        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('user', username=current_user.username) }}">Profil</a>
         <a href="{{ url_for('logout') }}">Déconnexion</a>
         {% endif %}
     </div>
