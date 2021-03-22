@@ -63,6 +63,6 @@ class LigneCommande(FlaskForm):
     quantity = IntegerField()
 
 class CommandeInitiale(FlaskForm):
-    entries=FieldList(LigneCommande)
+    entries=FieldList(FormField(LigneCommande))
     submit=SubmitField('Passer la Commande')
 

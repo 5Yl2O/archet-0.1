@@ -184,7 +184,7 @@ def commande_initiale():
     form = CommandeInitiale()
     form.entries = fields
     if form.validate_on_submit():
-        print(request.form)
+        flash(current_user)
 
     return render_template('commande_initiale.html', title='Commande Initiale',
                            form=form)

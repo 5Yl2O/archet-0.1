@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Commande Initiale</h1>
+    <form action="" method="post">
+            <table>
+                {% for entry in form.entries %}
+                <tr valign="top">
+                    <td>{{entry.quantity.label}}</td>
+                    <td>{{ entry.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+    <p>{{form.submit()}}</p>
+    </form>
+{% endblock %}>
