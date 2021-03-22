@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm,\
+    EmptyForm, PostForm, CommandeInitiale, LigneCommande
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from werkzeug.urls import url_parse
@@ -164,3 +165,26 @@ def explore():
         if posts.has_prev else None
     return render_template("index.html", title='Explore', posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
+
+
+
+fake_product_list=['MU','GP','ARE','CLL']
+
+@app.route('/commande_initiale', methods=['GET', 'POST'])
+@login_required
+def commande_initiale():
+
+    fields = []
+    for ligne_bcd in fake_product_list :
+        ligne_item = LigneCommande()
+        ligne_item.quantity.label=ligne_bcd
+        ligne_item.quantity.name=ligne_bcd
+        fields.append(ligne_item)
+
+    form = CommandeInitiale()
+    form.entries = fields
+    if form.validate_on_submit():
+        print(request.form)
+
+    return render_template('commande_initiale.html', title='Commande Initiale',
+                           form=form)

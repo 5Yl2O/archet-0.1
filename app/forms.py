@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField, TextAreaField, FieldList,\
+    FormField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
@@ -56,4 +57,12 @@ class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+
+
+class LigneCommande(FlaskForm):
+    quantity = IntegerField()
+
+class CommandeInitiale(FlaskForm):
+    entries=FieldList(LigneCommande)
+    submit=SubmitField('Passer la Commande')
 
