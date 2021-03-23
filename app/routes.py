@@ -174,12 +174,10 @@ def explore():
 @login_required
 def commande_initiale():
 
-    vrac=Product.query.filter_by(type='vrac').all()
-    bout=Product.query.filter_by(type='bout').all()
-    div=Product.query.filter_by(type='div').all()
+    items=Product.query.all()
 
     fields = []
-    for ligne_bcd in vrac :
+    for ligne_bcd in items :
         ligne_item = LigneCommande()
         ligne_item.quantity.label='{} \t {} \t [{}]'.format(ligne_bcd.label,ligne_bcd.millesime,ligne_bcd.code_archet)
         ligne_item.quantity.name=ligne_bcd
@@ -188,7 +186,7 @@ def commande_initiale():
     form = CommandeInitiale()
     form.entries = fields
     if form.validate_on_submit():
-        flash('Commande passée par {}'.format(current_user.username))
+        flash('Merci {} pour votre commande !'.format(current_user.username))
 
     return render_template('commande_initiale.html', title='Commande Initiale',
                            form=form)

@@ -60,7 +60,7 @@ class PostForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class LigneCommande(Form):
+class LigneCommande(FlaskForm):
     quantity = IntegerField()
 
 class CommandeInitiale(FlaskForm):

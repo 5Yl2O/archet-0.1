@@ -7,8 +7,10 @@
             <table>
                 {% for entry in form.entries %}
                 <tr valign="top">
-                    <td>{{entry.quantity.label}}</td>
-                    <td>{{ entry.quantity }}</td>
+                    <td> {{ (entry.quantity.label).split('\t')[0] }}</td>
+                    <td> {{ (entry.quantity.label).split('\t')[1] }}</td>
+                    <td> {{ (entry.quantity.label).split('\t')[2] }}</td>
+                    <td> {{ entry.quantity }}</td>
                 </tr>
                 {% endfor %}
             </table>
