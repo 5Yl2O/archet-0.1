@@ -76,7 +76,7 @@ class Producer(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(128))
     domain=db.Column(db.String(128))
-    products=db.relationship('Product', backref='author',lazy='dynamic')
+    products=db.relationship('Product', backref='producer',lazy='dynamic')
 
     def __repr__(self):
         return '<Producer {}>'.format(self.name)
@@ -85,6 +85,7 @@ class Producer(db.Model):
 class Product(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     label=db.Column(db.String(128))
+    type=db.Column(db.String(20)) #Vrac ou bouteilles
     millesime=db.Column(db.Integer)
     code_archet=db.Column(db.String(10))
     year=db.Column(db.Integer)
@@ -93,7 +94,11 @@ class Product(db.Model):
     def __repr__(self):
         return '<Product {}>'.format(self.label)
 
-
+class Command(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
+    product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
+    quantity=db.Column(db.Integer)
 
 
 

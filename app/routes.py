@@ -3,7 +3,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm,\
     EmptyForm, PostForm, CommandeInitiale, LigneCommande
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Post
+from app.models import User, Post, Product, Producer
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -168,23 +168,27 @@ def explore():
 
 
 
-fake_product_list=['MU','GP','ARE','CLL']
+
 
 @app.route('/commande_initiale', methods=['GET', 'POST'])
 @login_required
 def commande_initiale():
 
+    vrac=Product.query.filter_by(type='vrac').all()
+    bout=Product.query.filter_by(type='bout').all()
+    div=Product.query.filter_by(type='div').all()
+
     fields = []
-    for ligne_bcd in fake_product_list :
+    for ligne_bcd in vrac :
         ligne_item = LigneCommande()
-        ligne_item.quantity.label=ligne_bcd
+        ligne_item.quantity.label='{} \t {} \t [{}]'.format(ligne_bcd.label,ligne_bcd.millesime,ligne_bcd.code_archet)
         ligne_item.quantity.name=ligne_bcd
         fields.append(ligne_item)
 
     form = CommandeInitiale()
     form.entries = fields
     if form.validate_on_submit():
-        flash(current_user)
+        flash('Commande passée par {}'.format(current_user.username))
 
     return render_template('commande_initiale.html', title='Commande Initiale',
                            form=form)

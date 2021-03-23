@@ -1,6 +1,7 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, Form
 from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField, TextAreaField, FieldList,\
     FormField
+
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
@@ -59,7 +60,7 @@ class PostForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class LigneCommande(FlaskForm):
+class LigneCommande(Form):
     quantity = IntegerField()
 
 class CommandeInitiale(FlaskForm):

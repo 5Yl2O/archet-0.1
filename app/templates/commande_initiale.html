@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Commande Initiale</h1>
     <form action="" method="post">
+            {{ form.hidden_tag() }}
             <table>
                 {% for entry in form.entries %}
                 <tr valign="top">
